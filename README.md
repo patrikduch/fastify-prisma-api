@@ -28,6 +28,14 @@ npm run dev                            # Start the backend API server
 Generates the TS client from schema.prisma so you can write prisma.user.findMany() in code
 
 
+
+## Authentication
+
+JWT-based session auth with **httpOnly cookies**. The token is issued on
+register / login and sent automatically by the browser on subsequent calls;
+JavaScript cannot read it (XSS-safe).
+
+
 ## Linting & formatting
 
 ESLint 9 (flat config) + Prettier are preconfigured.
