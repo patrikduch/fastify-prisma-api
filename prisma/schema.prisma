@@ -1,0 +1,20 @@
+
+// Prisma schema – PostgreSQL
+// Add your models below as the project grows.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// Placeholder model so the Prisma client can be generated.
+/// Replace or extend with your real domain models.
+model Example {
+  id        String   @id @default(cuid())
+  name      String
+  createdAt DateTime @default(now())
+}
