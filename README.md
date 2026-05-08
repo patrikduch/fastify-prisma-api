@@ -28,16 +28,25 @@ npm run dev                            # Start the backend API server
 Generates the TS client from schema.prisma so you can write prisma.user.findMany() in code
 
 
+## Linting & formatting
+
+ESLint 9 (flat config) + Prettier are preconfigured.
+
+```bash
+npm run lint            # check
+npm run  lint:fix        # auto-fix safe issues
+npm run format          # write Prettier formatting
+npm run format:check    # check only – use in CI
+npm  typecheck       # standalone TypeScript check
+```
+
+
+
 ### Docker deploy
 
 ```bash
  docker build -t fastify-prisma-api:latest .
 ```
-
-
-```bash
- docker run -d --name fastify-api -p 8001:8001 -e DATABASE_URL="postgresql://fastify:fastify@host.docker.internal:5440/fastify_dev?schema=public" -e NODE_ENV=production fastify-prisma-api:latest
- ```
 
 
 
