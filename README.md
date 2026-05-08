@@ -24,18 +24,23 @@ npm run dev                            # Start the backend API server
 
 
 
-```bash prisma:migrate ```
+```bash
+ prisma:migrate 
+```
 
 Generates the TS client from schema.prisma so you can write prisma.user.findMany() in code
 
 
-
 ### Docker deploy
 
-```bash docker build -t fastify-prisma-api:latest .```
+```bash
+ docker build -t fastify-prisma-api:latest .
+```
 
 
-```bash docker run -d --name fastify-api -p 8001:8001 -e DATABASE_URL="postgresql://fastify:fastify@host.docker.internal:5440/fastify_dev?schema=public" -e NODE_ENV=production fastify-prisma-api:latest```
+```bash
+ docker run -d --name fastify-api -p 8001:8001 -e DATABASE_URL="postgresql://fastify:fastify@host.docker.internal:5440/fastify_dev?schema=public" -e NODE_ENV=production fastify-prisma-api:latest
+ ```
 
 
 
