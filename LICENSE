@@ -1,0 +1,118 @@
+# 📄 Fastify-Prisma-API Educational License v1.0
+
+**Copyright (c) 2026 Patrik Duch s.r.o., IČO: 24091090, Ostrava.**
+
+All rights reserved.
+
+---
+
+## Preamble
+
+This software is provided **strictly for educational and demonstrational purposes**.
+It is published publicly only to showcase the author's technical knowledge and architectural approach.
+**No party other than Bc. Patrik Duch (natural person, IČO: 09225471) and Patrik Duch s.r.o. (IČO: 24091090) is permitted to use this Software for any purpose** beyond passive viewing of the source code.
+By accessing, copying, or using any part of this Software, you agree to the following terms.
+
+---
+
+## 1. Definitions
+
+"**Software**" means the Fastify-Prisma-API source code, configuration files, documentation, and any associated assets provided by Licensor.
+
+"**Licensor**" means Patrik Duch s.r.o., IČO: 24091090, with registered office in Ostrava, Czech Republic.
+
+"**Authorized Parties**" means:
+a) **Bc. Patrik Duch**, natural person doing business under the Czech Trade Licensing Act (živnostenský zákon), IČO: 09225471, and
+b) **Patrik Duch s.r.o.**, IČO: 24091090.
+
+"**You**" or "**Licensee**" means any person or organization other than the Authorized Parties who accesses, views, or attempts to use the Software.
+
+---
+
+## 2. Grant
+
+Authorized Parties retain all rights to use, modify, distribute, sublicense, and otherwise exploit the Software without restriction.
+
+For all other parties (Licensees), Licensor grants only a limited, non-exclusive, non-transferable, revocable right to **passively view** the published source code for educational reference and to evaluate the author's technical skills.
+
+**No other use is permitted.** Licensees may not run, install, copy, modify, or otherwise interact with the Software beyond reading its published form.
+
+---
+
+## 3. Restrictions
+
+You (Licensee) shall **not**:
+
+a) install, run, execute, or operate the Software in any environment;
+b) copy, fork, clone, download, or store the Software locally beyond browser-based viewing;
+c) publish, disclose, distribute, sublicense, sell, or make the Software available to any third party;
+d) use the Software or any part of it in any project, service, product, or workflow, whether commercial, non-commercial, personal, or academic;
+e) host the Software as a service or use it to provide services to others;
+f) modify, translate, adapt, or create derivative works of the Software;
+g) remove or alter any proprietary notices, copyright statements, or markings;
+h) circumvent or disable any security or technical measures;
+i) represent the Software as your own work or use it as the basis for any professional, academic, or commercial submission;
+j) use the Software, in whole or in part, as training data for machine learning models, large language models, or any artificial intelligence system;
+k) extract architectural patterns, design decisions, or implementation specifics from the Software for use in any project or system not owned by the Authorized Parties.
+
+---
+
+## 4. Ownership
+
+The Software is licensed, not sold.
+Licensor retains all right, title, and interest in and to the Software, including all intellectual property rights, design patterns, and architectural decisions reflected therein.
+Public availability of the source code does not constitute a waiver of any rights or grant of additional permissions beyond those expressly stated in this License.
+
+---
+
+## 5. Feedback
+
+Any feedback, suggestions, comments, or contributions provided by any party may be used by the Licensor without restriction and without obligation to the contributor.
+
+---
+
+## 6. Third-Party Components
+
+The Software includes third-party open-source components (including but not limited to Fastify, Prisma, TypeScript, and their dependencies) subject to their respective licenses.
+Those licenses govern such components independently of this License.
+Use of those components within the Software remains restricted to the Authorized Parties under the terms of this License.
+
+---
+
+## 7. No Warranty
+
+THE SOFTWARE IS PROVIDED "AS IS" WITHOUT ANY WARRANTIES, EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR NON-INFRINGEMENT.
+
+---
+
+## 8. Limitation of Liability
+
+TO THE MAXIMUM EXTENT PERMITTED BY LAW, LICENSOR SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, OR ANY LOSS OF PROFITS, REVENUE, DATA, OR BUSINESS, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+
+LICENSOR'S TOTAL LIABILITY SHALL NOT EXCEED EUR 100.
+
+---
+
+## 9. Term and Termination
+
+This License is effective until terminated.
+Licensor may terminate it at any time, for any reason, without notice.
+Upon termination, you must cease all access to the Software and destroy any copies in your possession.
+
+---
+
+## 10. Governing Law
+
+This License is governed by the laws of the **Czech Republic**, without regard to conflict-of-law principles.
+All disputes shall be subject to the exclusive jurisdiction of the courts of the Czech Republic.
+
+---
+
+## 11. Entire Agreement
+
+This License constitutes the entire agreement regarding the Software and supersedes all prior or contemporaneous understandings.
+Any modifications must be in writing and signed by an authorized representative of the Licensor.
+
+---
+
+**Contact:** duchpatrik@icloud.com
