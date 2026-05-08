@@ -9,7 +9,7 @@ const PORT = Number(process.env.PORT ?? 8001);
 const HOST = process.env.HOST ?? '0.0.0.0';
 
 const displayHost = (host: string) => 
-  host === '127.0.0.1' || host === '0.0.0.0' ? 'localhost' : host;
+  host === '127.0.0.1' ? 'localhost' : host;
 
 async function buildServer() {
   const app = Fastify({
@@ -28,21 +28,33 @@ async function buildServer() {
   });
 
   await app.register(swagger, {
-    openapi: {
-      info: {
-        title: 'Fastify Backend API',
-        description: 'Fastify + TypeScript + Prisma starter',
-        version: '1.0.0',
-      },
-      servers: [{ url: `http://localhost:${PORT}` }],
-      tags: [{ name: 'Health', description: 'Health check endpoints' }],
+  openapi: {
+    info: {
+      title: 'Fastify Backend API',
+      description: 'Fastify + TypeScript + Prisma starter',
+      version: '1.0.0',
     },
-  });
+    tags: [{ name: 'Health', description: 'Health check endpoints' }],
+  },
+});
 
-  await app.register(swaggerUi, {
-    routePrefix: '/api/docs',
-    uiConfig: { docExpansion: 'list', deepLinking: false },
-  });
+await app.register(swaggerUi, {
+  routePrefix: '/api/docs',
+  uiConfig: {
+    docExpansion: 'list',
+    deepLinking: false,
+  },
+  transformSpecificationClone: true,
+  transformSpecification: (swaggerObject, request) => {
+    const protocol = (request.headers['x-forwarded-proto'] as string) ?? request.protocol;
+    const host = (request.headers['x-forwarded-host'] as string) ?? request.hostname;
+    
+    (swaggerObject as any).servers = [{ url: `${protocol}://${host}` }];
+    
+    return swaggerObject;
+    },
+});
+
 
   // All API routes are prefixed with /api per platform convention.
   await app.register(healthRoutes, { prefix: '/api' });
@@ -72,7 +84,7 @@ async function buildServer() {
   try {
     const app = await buildServer();
     await app.listen({ port: PORT, host: HOST, listenTextResolver: () => `[PATRIK] Patrik's API listening at http://${displayHost(HOST)}:${PORT}`});
-    app.log.info(`Swagger UI available at http://${HOST}:${PORT}/api/docs`);
+    app.log.info(`Swagger UI available at http://${HOST}:${PORT}/api/docs/`);
   } catch (err) {
     console.error(err);
     process.exit(1);
