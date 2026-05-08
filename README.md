@@ -23,10 +23,7 @@ npm run dev                            # Start the backend API server
 ```
 
 
-
-```bash
- prisma:migrate 
-```
+<strong>prisma:migrate</strong>
 
 Generates the TS client from schema.prisma so you can write prisma.user.findMany() in code
 
