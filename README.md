@@ -31,7 +31,7 @@ Generates the TS client from schema.prisma so you can write prisma.user.findMany
 
 ## Authentication
 
-JWT-based session auth with **httpOnly cookies**. The token is issued on
+JWT-based authentication via **httpOnly cookies**. The token is issued on
 register / login and sent automatically by the browser on subsequent calls;
 JavaScript cannot read it (XSS-safe).
 
