@@ -7,6 +7,7 @@ import uowPlugin from './plugins/uow';
 import authPlugin from './plugins/auth';
 import { healthRoutes } from './routes/health';
 import { authRoutes } from './routes/auth';
+import { WithServers } from './types/swagger';
 
 const PORT = Number(process.env.PORT ?? 8001);
 const HOST = process.env.HOST ?? '0.0.0.0';
@@ -55,8 +56,6 @@ async function buildServer() {
       },
     },
   });
-
-  type WithServers = { servers?: Array<{ url: string; description?: string }> };
 
   await app.register(swaggerUi, {
     routePrefix: '/api/docs',

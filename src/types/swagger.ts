@@ -1,0 +1,1 @@
+export type WithServers = { servers?: Array<{ url: string; description?: string }> };
