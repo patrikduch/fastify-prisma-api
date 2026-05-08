@@ -1,2 +1,7 @@
+# AI / TDM Opt-Out
+# Pursuant to Article 4(3) of EU Directive 2019/790 (DSM Directive),
+# the rightsholder reserves all rights and opts out of any text and
+# data mining exception for this content.
+# See LICENSE.md for full terms.
 User-Agent: *
 Disallow: /
