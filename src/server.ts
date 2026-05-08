@@ -3,7 +3,10 @@ import Fastify from 'fastify';
 import cors from '@fastify/cors';
 import swagger from '@fastify/swagger';
 import swaggerUi from '@fastify/swagger-ui';
+import uowPlugin from './plugins/uow';
+import authPlugin from './plugins/auth';
 import { healthRoutes } from './routes/health';
+import { authRoutes } from './routes/auth';
 
 const PORT = Number(process.env.PORT ?? 8001);
 const HOST = process.env.HOST ?? '0.0.0.0';
@@ -27,6 +30,13 @@ async function buildServer() {
     credentials: true,
   });
 
+
+    // Unit of Work + Repositories
+  await app.register(uowPlugin);
+
+    // Auth (JWT + httpOnly cookies). Must come before routes that use app.authenticate.
+  await app.register(authPlugin);
+
   await app.register(swagger, {
   openapi: {
     info: {
@@ -35,6 +45,16 @@ async function buildServer() {
       version: '1.0.0',
     },
     tags: [{ name: 'Health', description: 'Health check endpoints' }],
+
+       components: {
+        securitySchemes: {
+          cookieAuth: {
+            type: 'apiKey',
+            in: 'cookie',
+            name: 'access_token',
+          },
+        },
+      },
   },
 });
 
@@ -58,6 +78,7 @@ await app.register(swaggerUi, {
 
   // All API routes are prefixed with /api per platform convention.
   await app.register(healthRoutes, { prefix: '/api' });
+  await app.register(authRoutes, { prefix: '/api' });
 
 
   app.setErrorHandler((error, _req, reply) => {
@@ -90,3 +111,5 @@ await app.register(swaggerUi, {
     process.exit(1);
   }
 })();
+
+
