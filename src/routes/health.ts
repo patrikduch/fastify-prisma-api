@@ -1,4 +1,5 @@
 import type { FastifyPluginAsync } from 'fastify';
+import { prisma } from '../lib/prisma';
 
 export const healthRoutes: FastifyPluginAsync = async (app) => {
   app.get(
@@ -24,6 +25,46 @@ export const healthRoutes: FastifyPluginAsync = async (app) => {
       status: 'ok',
       uptime: process.uptime(),
       timestamp: new Date().toISOString(),
-    }),
+    })),
+
+    app.get(
+    '/health/db',
+    {
+      schema: {
+        tags: ['Health'],
+        summary: 'Database readiness probe',
+        description: 'Pings the Patrick\'s database via Prisma to verify connectivity.',
+        response: {
+          200: {
+            type: 'object',
+            properties: {
+              status: { type: 'string', example: 'ok' },
+              database: { type: 'string', example: 'connected' },
+            },
+          },
+          503: {
+            type: 'object',
+            properties: {
+              status: { type: 'string', example: 'error' },
+              database: { type: 'string', example: 'disconnected' },
+              message: { type: 'string' },
+            },
+          },
+        },
+      },
+    },
+    async (_req, reply) => {
+      try {
+        await prisma.$queryRaw`SELECT 1`;
+        return { status: 'ok', database: 'connected' };
+      } catch (err) {
+        const message = err instanceof Error ? err.message : 'unknown error';
+        return reply.status(503).send({
+          status: 'error',
+          database: 'disconnected',
+          message,
+        });
+      }
+    },
   );
 };
