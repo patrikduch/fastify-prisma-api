@@ -8,7 +8,7 @@ export const healthRoutes: FastifyPluginAsync = async (app) => {
       schema: {
         tags: ['Health'],
         summary: 'Liveness probe',
-        description: 'Check if Patrik\s API is running.',
+        description: "Check if Patrik's API is running.",
         response: {
           200: {
             type: 'object',
@@ -25,15 +25,16 @@ export const healthRoutes: FastifyPluginAsync = async (app) => {
       status: 'ok',
       uptime: process.uptime(),
       timestamp: new Date().toISOString(),
-    })),
+    }),
+  ); // ← tady byla čárka
 
-    app.get(
+  app.get(
     '/health/db',
     {
       schema: {
         tags: ['Health'],
         summary: 'Database readiness probe',
-        description: 'Pings the Patrick\'s database via Prisma to verify connectivity.',
+        description: "Pings the Patrick's database via Prisma to verify connectivity.",
         response: {
           200: {
             type: 'object',

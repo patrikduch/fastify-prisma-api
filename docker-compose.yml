@@ -8,11 +8,11 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-fastify}
       POSTGRES_DB: ${POSTGRES_DB:-fastify_dev}
     ports:
-      - "${POSTGRES_PORT:-5432}:5432"
+      - '${POSTGRES_PORT:-5432}:5432'
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-fastify} -d ${POSTGRES_DB:-fastify_dev}"]
+      test: ['CMD-SHELL', 'pg_isready -U ${POSTGRES_USER:-fastify} -d ${POSTGRES_DB:-fastify_dev}']
       interval: 5s
       timeout: 5s
       retries: 10
@@ -23,13 +23,13 @@ services:
     image: dpage/pgadmin4:latest
     container_name: fastify-backend-pgadmin
     restart: unless-stopped
-    profiles: ["tools"]
+    profiles: ['tools']
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@local.dev
       PGADMIN_DEFAULT_PASSWORD: admin
-      PGADMIN_CONFIG_SERVER_MODE: "False"
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
     ports:
-      - "5050:80"
+      - '5050:80'
     depends_on:
       postgres:
         condition: service_healthy

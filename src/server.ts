@@ -11,8 +11,7 @@ import { authRoutes } from './routes/auth';
 const PORT = Number(process.env.PORT ?? 8001);
 const HOST = process.env.HOST ?? '0.0.0.0';
 
-const displayHost = (host: string) => 
-  host === '127.0.0.1' ? 'localhost' : host;
+const displayHost = (host: string) => (host === '127.0.0.1' ? 'localhost' : host);
 
 async function buildServer() {
   const app = Fastify({
@@ -30,23 +29,22 @@ async function buildServer() {
     credentials: true,
   });
 
-
-    // Unit of Work + Repositories
+  // Unit of Work + Repositories
   await app.register(uowPlugin);
 
-    // Auth (JWT + httpOnly cookies). Must come before routes that use app.authenticate.
+  // Auth (JWT + httpOnly cookies). Must come before routes that use app.authenticate.
   await app.register(authPlugin);
 
   await app.register(swagger, {
-  openapi: {
-    info: {
-      title: 'Fastify Backend API',
-      description: 'Fastify + TypeScript + Prisma starter',
-      version: '1.0.0',
-    },
-    tags: [{ name: 'Health', description: 'Health check endpoints' }],
+    openapi: {
+      info: {
+        title: 'Fastify Backend API',
+        description: 'Fastify + TypeScript + Prisma starter',
+        version: '1.0.0',
+      },
+      tags: [{ name: 'Health', description: 'Health check endpoints' }],
 
-       components: {
+      components: {
         securitySchemes: {
           cookieAuth: {
             type: 'apiKey',
@@ -55,31 +53,31 @@ async function buildServer() {
           },
         },
       },
-  },
-});
-
-await app.register(swaggerUi, {
-  routePrefix: '/api/docs',
-  uiConfig: {
-    docExpansion: 'list',
-    deepLinking: false,
-  },
-  transformSpecificationClone: true,
-  transformSpecification: (swaggerObject, request) => {
-    const protocol = (request.headers['x-forwarded-proto'] as string) ?? request.protocol;
-    const host = (request.headers['x-forwarded-host'] as string) ?? request.hostname;
-    
-    (swaggerObject as any).servers = [{ url: `${protocol}://${host}` }];
-    
-    return swaggerObject;
     },
-});
+  });
 
+  type WithServers = { servers?: Array<{ url: string; description?: string }> };
+
+  await app.register(swaggerUi, {
+    routePrefix: '/api/docs',
+    uiConfig: {
+      docExpansion: 'list',
+      deepLinking: false,
+    },
+    transformSpecificationClone: true,
+    transformSpecification: (swaggerObject, request) => {
+      const protocol = (request.headers['x-forwarded-proto'] as string) ?? request.protocol;
+      const host = (request.headers['x-forwarded-host'] as string) ?? request.hostname;
+
+      (swaggerObject as WithServers).servers = [{ url: `${protocol}://${host}` }];
+
+      return swaggerObject;
+    },
+  });
 
   // All API routes are prefixed with /api per platform convention.
   await app.register(healthRoutes, { prefix: '/api' });
   await app.register(authRoutes, { prefix: '/api' });
-
 
   app.setErrorHandler((error, _req, reply) => {
     app.log.error(error);
@@ -104,12 +102,15 @@ await app.register(swaggerUi, {
 (async () => {
   try {
     const app = await buildServer();
-    await app.listen({ port: PORT, host: HOST, listenTextResolver: () => `[PATRIK] Patrik's API listening at http://${displayHost(HOST)}:${PORT}`});
+    await app.listen({
+      port: PORT,
+      host: HOST,
+      listenTextResolver: () =>
+        `[PATRIK] Patrik's API listening at http://${displayHost(HOST)}:${PORT}`,
+    });
     app.log.info(`Swagger UI available at http://${HOST}:${PORT}/api/docs/`);
   } catch (err) {
     console.error(err);
     process.exit(1);
   }
 })();
-
-

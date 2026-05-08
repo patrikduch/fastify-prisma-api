@@ -16,11 +16,7 @@ export interface TrackedRepository<TEntity> {
   /** Insert a brand-new entity. Returns the persisted row (with id, defaults). */
   persistInsert(tx: Prisma.TransactionClient, input: unknown): Promise<TEntity>;
   /** Update an entity that was loaded earlier and then mutated in memory. */
-  persistUpdate(
-    tx: Prisma.TransactionClient,
-    entity: TEntity,
-    snapshot: TEntity,
-  ): Promise<void>;
+  persistUpdate(tx: Prisma.TransactionClient, entity: TEntity, snapshot: TEntity): Promise<void>;
   /** Remove an entity that was loaded earlier. */
   persistDelete(tx: Prisma.TransactionClient, entity: TEntity): Promise<void>;
 }

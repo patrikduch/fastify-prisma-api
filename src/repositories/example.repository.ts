@@ -1,4 +1,4 @@
-import type { Example, Prisma, PrismaClient } from '@prisma/client';
+import type { Example, Prisma } from '@prisma/client';
 import type { DbClient, IRepository, TrackedRepository } from './base.repository';
 import type { UnitOfWork } from '../uow/unit-of-work';
 
@@ -13,9 +13,7 @@ import type { UnitOfWork } from '../uow/unit-of-work';
  * runs inside `UnitOfWork.commit()`'s transaction.
  */
 export class ExampleRepository
-  implements
-    IRepository<Example, Prisma.ExampleCreateInput>,
-    TrackedRepository<Example>
+  implements IRepository<Example, Prisma.ExampleCreateInput>, TrackedRepository<Example>
 {
   constructor(
     private readonly uow: UnitOfWork,

@@ -21,9 +21,9 @@ declare module 'fastify' {
 }
 
 const uowPlugin: FastifyPluginAsync = async (app) => {
-  app.decorate('withUnitOfWork', async function <R>(
-    fn: (uow: UnitOfWork) => Promise<R>,
-  ): Promise<R> {
+  app.decorate('withUnitOfWork', async function <
+    R,
+  >(fn: (uow: UnitOfWork) => Promise<R>): Promise<R> {
     const uow = new UnitOfWork(prisma);
     try {
       return await fn(uow);

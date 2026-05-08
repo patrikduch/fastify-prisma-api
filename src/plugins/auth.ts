@@ -33,7 +33,7 @@ declare module '@fastify/jwt' {
 }
 
 export interface AuthTokenPayload {
-  sub: string;   // user id
+  sub: string; // user id
   email: string;
 }
 
@@ -42,9 +42,7 @@ const ACCESS_TOKEN_TTL_SECONDS = 60 * 60 * 24 * 7; // 7 days
 const authPlugin: FastifyPluginAsync = async (app) => {
   const jwtSecret = process.env.JWT_SECRET;
   if (!jwtSecret || jwtSecret.length < 32) {
-    throw new Error(
-      'JWT_SECRET is missing or too short (must be >=32 chars). Set it in .env.',
-    );
+    throw new Error('JWT_SECRET is missing or too short (must be >=32 chars). Set it in .env.');
   }
 
   await app.register(cookie, {
@@ -67,8 +65,8 @@ const authPlugin: FastifyPluginAsync = async (app) => {
       const token = app.jwt.sign(payload);
       reply.setCookie(ACCESS_COOKIE, token, {
         httpOnly: true,
-        secure: isProd,            // require HTTPS in prod
-        sameSite: 'lax',           // CSRF-safe for top-level navigations
+        secure: isProd, // require HTTPS in prod
+        sameSite: 'lax', // CSRF-safe for top-level navigations
         path: '/',
         maxAge: ACCESS_TOKEN_TTL_SECONDS,
       });
@@ -79,18 +77,15 @@ const authPlugin: FastifyPluginAsync = async (app) => {
     },
   });
 
-  app.decorate(
-    'authenticate',
-    async (req: FastifyRequest, reply: FastifyReply) => {
-      try {
-        const payload = await req.jwtVerify<AuthTokenPayload>();
-        req.currentUserId = payload.sub;
-        req.currentUserEmail = payload.email;
-      } catch {
-        reply.status(401).send({ error: 'Unauthorized', message: 'Not authenticated' });
-      }
-    },
-  );
+  app.decorate('authenticate', async (req: FastifyRequest, reply: FastifyReply) => {
+    try {
+      const payload = await req.jwtVerify<AuthTokenPayload>();
+      req.currentUserId = payload.sub;
+      req.currentUserEmail = payload.email;
+    } catch {
+      reply.status(401).send({ error: 'Unauthorized', message: 'Not authenticated' });
+    }
+  });
 };
 
 export default fp(authPlugin, { name: 'auth' });

@@ -1,5 +1,5 @@
 import { isDeepStrictEqual } from 'node:util';
-import type { Prisma, PrismaClient } from '@prisma/client';
+import type { PrismaClient } from '@prisma/client';
 import type { TrackedRepository } from '../repositories/base.repository';
 import { ExampleRepository } from '../repositories/example.repository';
 import { UserRepository } from '../repositories/user.repository';

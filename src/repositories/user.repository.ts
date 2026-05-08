@@ -3,9 +3,7 @@ import type { DbClient, IRepository, TrackedRepository } from './base.repository
 import type { UnitOfWork } from '../uow/unit-of-work';
 
 export class UserRepository
-  implements
-    IRepository<User, Prisma.UserCreateInput>,
-    TrackedRepository<User>
+  implements IRepository<User, Prisma.UserCreateInput>, TrackedRepository<User>
 {
   constructor(
     private readonly uow: UnitOfWork,
@@ -51,11 +49,7 @@ export class UserRepository
     return tx.user.create({ data: input as Prisma.UserCreateInput });
   }
 
-  async persistUpdate(
-    tx: Prisma.TransactionClient,
-    entity: User,
-    _snapshot: User,
-  ): Promise<void> {
+  async persistUpdate(tx: Prisma.TransactionClient, entity: User, _snapshot: User): Promise<void> {
     await tx.user.update({
       where: { id: entity.id },
       data: {

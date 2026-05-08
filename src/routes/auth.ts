@@ -3,12 +3,7 @@ import bcrypt from 'bcrypt';
 
 const BCRYPT_ROUNDS = 12;
 
-const publicUser = (u: {
-  id: string;
-  email: string;
-  name: string | null;
-  createdAt: Date;
-}) => ({
+const publicUser = (u: { id: string; email: string; name: string | null; createdAt: Date }) => ({
   id: u.id,
   email: u.email,
   name: u.name,
@@ -51,9 +46,7 @@ export const authRoutes: FastifyPluginAsync = async (app) => {
 
         const existing = await uow.users.findByEmail(email);
         if (existing) {
-          return reply
-            .status(409)
-            .send({ error: 'Conflict', message: 'Email already registered' });
+          return reply.status(409).send({ error: 'Conflict', message: 'Email already registered' });
         }
 
         const passwordHash = await bcrypt.hash(req.body.password, BCRYPT_ROUNDS);
@@ -104,9 +97,7 @@ export const authRoutes: FastifyPluginAsync = async (app) => {
             );
 
         if (!user || !ok) {
-          return reply
-            .status(401)
-            .send({ error: 'Unauthorized', message: 'Invalid credentials' });
+          return reply.status(401).send({ error: 'Unauthorized', message: 'Invalid credentials' });
         }
 
         app.auth.issueAccessToken(reply, { sub: user.id, email: user.email });
@@ -148,9 +139,7 @@ export const authRoutes: FastifyPluginAsync = async (app) => {
         const user = await uow.users.findById(req.currentUserId!);
         if (!user) {
           app.auth.clearAccessToken(reply);
-          return reply
-            .status(401)
-            .send({ error: 'Unauthorized', message: 'User not found' });
+          return reply.status(401).send({ error: 'Unauthorized', message: 'User not found' });
         }
         return publicUser(user);
       }),
